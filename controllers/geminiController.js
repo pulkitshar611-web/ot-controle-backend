@@ -1,17 +1,16 @@
-const { GoogleGenAI } = require("@google/genai");
-const db = require('../config/db');
-require('dotenv').config();
+import { GoogleGenAI } from "@google/genai";
+import db from '../config/db.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 // Initialize Gemini
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-// 1. Get Business Insight (Matches frontend 'getBusinessInsight')
-exports.getBusinessInsight = async (req, res) => {
+// 1. Get Business Insight
+export const getBusinessInsight = async (req, res) => {
     const { orders, clients } = req.body;
 
     try {
-        // Construct Summary from helper function or data passed directly
-        // In backend, we should ideally fetch from DB, but for now we follow frontend flow
         const summary = {
             totalOrders: orders.length,
             totalClients: clients.length,
@@ -46,8 +45,8 @@ exports.getBusinessInsight = async (req, res) => {
     }
 };
 
-// 2. Suggest Service Description (Matches frontend 'suggestServiceDescription')
-exports.suggestServiceDescription = async (req, res) => {
+// 2. Suggest Service Description
+export const suggestServiceDescription = async (req, res) => {
     const { serviceType } = req.body;
 
     try {
@@ -73,8 +72,8 @@ exports.suggestServiceDescription = async (req, res) => {
     }
 };
 
-// 3. Generate Welcome Message (For Login Screen)
-exports.getGreeting = async (req, res) => {
+// 3. Generate Welcome Message
+export const getGreeting = async (req, res) => {
     try {
         const prompt = `Genera un mensaje de bienvenida corto, profesional y motivador (máximo 1 frase) para un sistema de gestión de órdenes de trabajo (OT-Control). En Español.`;
 

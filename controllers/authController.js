@@ -1,9 +1,10 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const db = require('../config/db');
-require('dotenv').config();
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import db from '../config/db.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
     const { username, password } = req.body;
 
     try {
@@ -17,9 +18,6 @@ exports.login = async (req, res) => {
         const user = users[0];
 
         // Check password (In production, use bcrypt.compare)
-        // For now, assuming direct stirng comparison based on the provided MOCK data user
-        // BUT, I should implement it properly.
-        // If the password starts with $2a$, it's a hash. If not, it's plain text (legacy/mock).
         let isMatch = false;
         if (user.password_hash.startsWith('$2a$')) {
             isMatch = await bcrypt.compare(password, user.password_hash);
@@ -58,7 +56,7 @@ exports.login = async (req, res) => {
     }
 };
 
-exports.getMe = async (req, res) => {
+export const getMe = async (req, res) => {
     // Middleware should attach user to req
     res.json(req.user);
 };

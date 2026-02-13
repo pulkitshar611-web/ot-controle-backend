@@ -1,9 +1,12 @@
-const express = require('express');
-const cors = require('cors');
-const db = require('./config/db');
-const aiRoutes = require('./routes/aiRoutes');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import db from './config/db.js';
+import aiRoutes from './routes/aiRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import dataRoutes from './routes/dataRoutes.js';
 
-require('dotenv').config();
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,10 +14,6 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// Routes
-const authRoutes = require('./routes/authRoutes');
-const dataRoutes = require('./routes/dataRoutes');
 
 // Routes
 app.use('/api/ai', aiRoutes);

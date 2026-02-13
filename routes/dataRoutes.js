@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import * as dataController from '../controllers/dataController.js';
+
 const router = express.Router();
-const dataController = require('../controllers/dataController');
 
 // Clients
 router.get('/clients', dataController.getClients);
@@ -20,4 +21,4 @@ router.post('/appointments', dataController.createAppointment);
 router.put('/appointments/:id', dataController.updateAppointment);
 router.delete('/appointments/:id', dataController.deleteAppointment);
 
-module.exports = router;
+export default router;
